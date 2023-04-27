@@ -22,22 +22,37 @@
                    class="form-control"
                    type="text"
                    formControlName="projectName">
+            <span *ngIf="!signupForm.get('projectData.projectName').valid && signupForm.get('projectData.projectName').touched"
+                  class="help-block">
+              Invalid or Missing Project Name
+            </span>
+
             <label for="email">Email</label>
             <input id="email"
                    class="form-control"
                    type="text"
                    formControlName="email">
+            <span *ngIf="!signupForm.get('projectData.email').valid && signupForm.get('projectData.email').touched"
+                  class="help-block">
+              Invalid or Missing Email
+            </span>
             <label for="projectStatus">Project Status</label>
             <select id="projectStatus"
                     class="form-control"
                     formControlName="projectStatus">
-              <option value="stable">Stable</option>
-              <option value="critical">Critical</option>
-              <option value="finished">Finished</option>
+              <option value="">Choose Project Status</option>
+              <option *ngFor="let status of projectStatuses" [ngValue]="status.value">
+                {{ status.name }}
+              </option>
+<!--              <option value="stable">Stable</option>-->
+<!--              <option value="critical">Critical</option>-->
+<!--              <option value="finished">Finished</option>-->
             </select>
           </div>
         </div>
-        <button class="btn btn-primary" type="submit">Submit</button>
+        <span *ngIf="!signupForm.valid && signupForm.touched"
+              class="help-block">Please fix form errors.</span>
+        <button [ngClass]="{disabled: !signupForm.valid}" class="btn btn-primary" type="submit">Submit</button>
       </form>
     </div>
   </div>
